@@ -9,6 +9,7 @@ class App {
     this.config();
 
     // Não remover essa rota
+    // iniciando o PR do Projeto
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
 
