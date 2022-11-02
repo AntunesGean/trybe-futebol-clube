@@ -12,6 +12,16 @@ class Controller {
       return res.status(401).json({ message: error.message });
     }
   }
+
+  async getRole(req: Request, res: Response) {
+    try {
+      const { userId } = req.headers;
+      const role = await this.service.getRole(userId as string);
+      return res.status(200).json({ role });
+    } catch (error: any) {
+      return res.status(401).json({ message: error.message });
+    }
+  }
 }
 
 export default Controller;

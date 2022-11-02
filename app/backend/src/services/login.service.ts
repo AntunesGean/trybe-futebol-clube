@@ -24,4 +24,11 @@ export default class LoginUserService {
     const token = createToken(findUser);
     return token;
   }
+
+  async getRole(userId: string): Promise<string> {
+    const findUser = await this.model.findOne({
+      where: { id: userId },
+    });
+    return findUser?.role as string;
+  }
 }

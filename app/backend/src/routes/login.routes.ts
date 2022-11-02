@@ -13,4 +13,10 @@ login.post(
   (req, res) => controller.findLogin(req, res),
 );
 
+login.get(
+  '/validate',
+  Middleware.validateToken,
+  (req, res) => controller.getRole(req, res),
+);
+
 export default login;
