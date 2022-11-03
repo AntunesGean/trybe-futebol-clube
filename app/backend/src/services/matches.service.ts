@@ -25,6 +25,15 @@ class MatchService {
     });
     return matches;
   }
+
+  async createMatch(match: Matches) {
+    const { homeTeam, awayTeam } = match;
+    if (homeTeam === awayTeam) {
+      throw new Error('It is not possible to create a match with two equal teams');
+    }
+    const newMatch = this.model.create(match);
+    return newMatch;
+  }
 }
 
 export default MatchService;
