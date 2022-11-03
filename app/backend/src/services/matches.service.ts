@@ -13,6 +13,18 @@ class MatchService {
     });
     return matches;
   }
+
+  async getAllMatchesInProgress(inProgress: string) {
+    const bool = inProgress === 'true';
+    const matches = this.model.findAll({
+      where: { inProgress: bool },
+      include: [
+        { model: Teams, as: 'teamHome', attributes: ['teamName'] },
+        { model: Teams, as: 'teamAway', attributes: ['teamName'] },
+      ],
+    });
+    return matches;
+  }
 }
 
 export default MatchService;
