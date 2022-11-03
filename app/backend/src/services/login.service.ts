@@ -1,9 +1,9 @@
-import IUser from '../interfaces';
+import { IUser } from '../interfaces';
 import User from '../database/models/Users';
 import { createToken } from '../helpers/jwtToken';
 import { comparePassword } from '../helpers/bcrypt';
 
-export default class LoginUserService {
+class LoginUserService {
   constructor(private model: typeof User) {}
 
   async findLogin(user: IUser): Promise<string> {
@@ -32,3 +32,5 @@ export default class LoginUserService {
     return findUser?.role as string;
   }
 }
+
+export default LoginUserService;

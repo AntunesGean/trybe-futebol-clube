@@ -1,6 +1,6 @@
 import { sign, JwtPayload, Secret, SignOptions, verify } from 'jsonwebtoken';
 import 'dotenv/config';
-import IUser from '../interfaces';
+import { IUser } from '../interfaces';
 
 const { JWT_SECRET } = process.env;
 
