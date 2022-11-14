@@ -34,6 +34,14 @@ class MatchService {
     const newMatch = this.model.create(match);
     return newMatch;
   }
+
+  async finishMatch(id: string) {
+    const updatedMatch = await this.model.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return updatedMatch;
+  }
 }
 
 export default MatchService;

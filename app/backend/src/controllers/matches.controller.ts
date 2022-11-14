@@ -5,6 +5,7 @@ class Controller {
   constructor(private service: Service) {
     this.getAllMatches = this.getAllMatches.bind(this);
     this.createMatch = this.createMatch.bind(this);
+    this.finishMatch = this.finishMatch.bind(this);
   }
 
   async getAllMatches(req: Request, res: Response) {
@@ -26,6 +27,16 @@ class Controller {
       const { body } = req;
       const match = await this.service.createMatch({ ...body, inProgress: true });
       return res.status(201).json(match);
+    } catch (error: any) {
+      return res.status(422).json({ message: error.message });
+    }
+  }
+
+  async finishMatch(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      await this.service.finishMatch(id);
+      return res.status(200).json({ message: 'Finished' });
     } catch (error: any) {
       return res.status(422).json({ message: error.message });
     }
