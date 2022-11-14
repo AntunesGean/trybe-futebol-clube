@@ -42,6 +42,11 @@ class MatchService {
     );
     return updatedMatch;
   }
+
+  async updateMatch(id: string, match: Matches) {
+    const updatedMatch = await this.model.update(match, { where: { id } });
+    return updatedMatch;
+  }
 }
 
 export default MatchService;

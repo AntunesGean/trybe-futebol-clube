@@ -6,6 +6,7 @@ class Controller {
     this.getAllMatches = this.getAllMatches.bind(this);
     this.createMatch = this.createMatch.bind(this);
     this.finishMatch = this.finishMatch.bind(this);
+    this.updateMatch = this.updateMatch.bind(this);
   }
 
   async getAllMatches(req: Request, res: Response) {
@@ -37,6 +38,17 @@ class Controller {
       const { id } = req.params;
       await this.service.finishMatch(id);
       return res.status(200).json({ message: 'Finished' });
+    } catch (error: any) {
+      return res.status(422).json({ message: error.message });
+    }
+  }
+
+  async updateMatch(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { body } = req;
+      const match = await this.service.updateMatch(id, body);
+      return res.status(200).json(match);
     } catch (error: any) {
       return res.status(422).json({ message: error.message });
     }

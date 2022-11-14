@@ -19,5 +19,9 @@ matches.patch(
   '/:id/finish',
   controller.finishMatch,
 );
+matches.patch(
+  '/:id',
+  controller.updateMatch,
+);
 
 export default matches;
