@@ -11,8 +11,9 @@ class Controller {
     try {
       const teams = await this.service.findAllTeams();
       return res.status(200).json(teams);
-    } catch (error: any) {
-      return res.status(401).json({ message: error.message });
+    } catch (error) {
+      const err = error as Error;
+      return res.status(401).json({ message: err.message });
     }
   }
 
@@ -21,8 +22,9 @@ class Controller {
       const { id } = req.params;
       const team = await this.service.findById(id);
       return res.status(200).json(team);
-    } catch (error: any) {
-      return res.status(401).json({ message: error.message });
+    } catch (error) {
+      const err = error as Error;
+      return res.status(401).json({ message: err.message });
     }
   }
 }

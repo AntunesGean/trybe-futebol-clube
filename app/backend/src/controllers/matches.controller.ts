@@ -18,8 +18,9 @@ class Controller {
       }
       const matches = await this.service.getAllMatches();
       return res.status(200).json(matches);
-    } catch (error: any) {
-      return res.status(401).json({ message: error.message });
+    } catch (error) {
+      const err = error as Error;
+      return res.status(401).json({ message: err.message });
     }
   }
 
@@ -28,8 +29,9 @@ class Controller {
       const { body } = req;
       const match = await this.service.createMatch({ ...body, inProgress: true });
       return res.status(201).json(match);
-    } catch (error: any) {
-      return res.status(422).json({ message: error.message });
+    } catch (error) {
+      const err = error as Error;
+      return res.status(422).json({ message: err.message });
     }
   }
 
@@ -38,8 +40,9 @@ class Controller {
       const { id } = req.params;
       await this.service.finishMatch(id);
       return res.status(200).json({ message: 'Finished' });
-    } catch (error: any) {
-      return res.status(422).json({ message: error.message });
+    } catch (error) {
+      const err = error as Error;
+      return res.status(422).json({ message: err.message });
     }
   }
 
@@ -49,8 +52,9 @@ class Controller {
       const { body } = req;
       const match = await this.service.updateMatch(id, body);
       return res.status(200).json(match);
-    } catch (error: any) {
-      return res.status(422).json({ message: error.message });
+    } catch (error) {
+      const err = error as Error;
+      return res.status(422).json({ message: err.message });
     }
   }
 }
