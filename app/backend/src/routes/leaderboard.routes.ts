@@ -5,6 +5,7 @@ import Controller from '../controllers/leaderboard.controller';
 const leaderboard = Router();
 const controller = new Controller(new Service());
 
+leaderboard.get('/', controller.getLeaderboardAll);
 leaderboard.get('/home', controller.getLeaderboardHome);
 leaderboard.get('/away', controller.getLeaderboardAway);
 

@@ -22,12 +22,33 @@ ON te.id = ma.${team1}
 where in_progress = 0
 GROUP BY te.team_name`;
 
+const leaderboardQuery3 = (queryHome: string, queryAway: string) => `SELECT
+name,
+SUM(goalsFavor) AS goalsFavor,
+SUM(goalsOwn) AS goalsOwn,
+SUM(goalsBalance) goalsBalance,
+SUM(totalVictories) AS totalVictories,
+SUM(totalLosses) AS totalLosses,
+SUM(totalDraws) AS totalDraws,
+SUM(totalGames) AS totalGames
+FROM ((${queryHome}) UNION (${queryAway})) AS newBoard GROUP BY name`;
+
 class LeaderboardService {
   constructor(private model = Model) {}
 
   async getLeaderboard(team1: string, team2: string) {
     return this.model.query(
       leaderboardQuery1(leaderboardQuery2(team1, team2)),
+      { type: QueryTypes.SELECT },
+    );
+  }
+
+  async getLeaderboardAll() {
+    return this.model.query(
+      leaderboardQuery1(leaderboardQuery3(
+        leaderboardQuery2('home_team', 'away_team'),
+        leaderboardQuery2('away_team', 'home_team'),
+      )),
       { type: QueryTypes.SELECT },
     );
   }
